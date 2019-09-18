@@ -78,7 +78,6 @@ services:
       SERVERS: zoo1,zoo2,zoo3
     ports:
       - "2182:2181"
-      -
       - "2888"
       - "3888"
 

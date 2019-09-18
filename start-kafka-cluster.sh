@@ -12,15 +12,14 @@ function echo_usage {
     echo ""
     echo "example:"
     echo "./start-kafka-cluster.sh 0901"
-    echo "./start-kafka-cluster.sh 210"
+    echo "./start-kafka-cluster.sh 230"
     echo "./start-kafka-cluster.sh {version}"
     exit 99
 }
 
 if [[ -z "${VERSION}" ]]; then echo_usage; fi
-if [[ ! "${VERSION}" = "0901" ]] && [[ ! "${VERSION}" = "210" ]] && [[ ! "${VERSION}" = "230" ]];then echo_usage ; fi
+if [[ ! "${VERSION}" = "0901" ]] && [[ ! "${VERSION}" = "230" ]];then echo_usage ; fi
 if [[ "${VERSION}" = "0901" ]]; then FILENAME="docker-compose-2.11-0.9.0.1.yml"   ; fi
-if [[ "${VERSION}" = "210" ]];  then FILENAME="docker-compose-2.12-2.1.0.yml"     ; fi
 if [[ "${VERSION}" = "230" ]];  then FILENAME="docker-compose-2.12-2.3.0.yml"     ; fi
 
 echo "preparing docker-compose with: ${FILENAME}"
