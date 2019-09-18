@@ -58,7 +58,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT:  zoo1:2181,zoo2:2181,zoo3:2181
 
   zoo1:
-    image: zoo_unlimited:latest
+    image: zoo-unlimited:latest
     environment:
       MYID: 1
       SERVERS: zoo1,zoo2,zoo3
@@ -68,7 +68,7 @@ services:
       - "3888"
 
   zoo2:
-    image: zoo_unlimited:latest
+    image: zoo-unlimited:latest
     environment:
       MYID: 2
       SERVERS: zoo1,zoo2,zoo3
@@ -78,7 +78,7 @@ services:
       - "3888"
 
   zoo3:
-    image: zoo_unlimited:latest
+    image: zoo-unlimited:latest
    #image: elevy/zookeeper:latest
     environment:
       MYID: 3

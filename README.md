@@ -29,6 +29,7 @@ To start the Zookeeper ensemble and Kafka cluster, assuming you have docker-comp
 2. create a zookeeper image that support ZOO_MAX_CNXNS for lms-allinone
     ```
     /kafka-server/zoo-unlimited $ docker build -t zoo-unlimited .
+    docker tag zoo-unlimited:latest lms/zoo-unlimited:latest
     ```
     
 3. run start script with the specified version (ip is optional, default to current IP)

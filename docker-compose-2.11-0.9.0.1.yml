@@ -64,7 +64,7 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 
   zoo1:
-    image: zoo_unlimited:latest
+    image: zoo-unlimited:latest
     environment:
       MYID: 1
       SERVERS: zoo1,zoo2,zoo3
@@ -74,7 +74,7 @@ services:
       - "3888"
 
   zoo2:
-    image: zoo_unlimited:latest
+    image: zoo-unlimited:latest
     environment:
       MYID: 2
       SERVERS: zoo1,zoo2,zoo3
@@ -84,7 +84,7 @@ services:
       - "3888"
 
   zoo3:
-    image: zoo_unlimited:latest
+    image: zoo-unlimited:latest
     environment:
       MYID: 3
       SERVERS: zoo1,zoo2,zoo3
