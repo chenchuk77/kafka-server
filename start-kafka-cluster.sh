@@ -5,17 +5,25 @@
 #
 
 VERSION=$1
+SERVER_IP=$2
 
 function echo_usage {
     echo "usage:"
-    echo "./start-kafka-cluster.sh {version}"
+    echo "./start-kafka-cluster.sh {version} [ip]"
     echo ""
     echo "example:"
-    echo "./start-kafka-cluster.sh 0901"
+    echo "./start-kafka-cluster.sh 0901 192.168.2.77"
+    echo "./start-kafka-cluster.sh 230 192.168.2.77"
     echo "./start-kafka-cluster.sh 230"
-    echo "./start-kafka-cluster.sh {version}"
     exit 99
 }
+
+if [[ -z "${SERVER_IP}" ]]; then
+    SERVER_IP=$(ifconfig| grep 192.168.2  | awk '{print $2}')
+    echo "server ip not provided, assuming ${SERVER_IP}"
+fi
+export SERVER_IP
+
 
 if [[ -z "${VERSION}" ]]; then echo_usage; fi
 if [[ ! "${VERSION}" = "0901" ]] && [[ ! "${VERSION}" = "230" ]];then echo_usage ; fi

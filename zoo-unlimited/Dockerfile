@@ -1,7 +1,7 @@
 FROM elevy/slim_java:8
 MAINTAINER chenchuk@gmail.com
 
-ENV ZK_VERSION 3.4.13
+ENV ZK_VERSION 3.4.14
 
 RUN apk add --no-cache --virtual .build-deps \
       ca-certificates   \
