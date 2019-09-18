@@ -3,7 +3,7 @@
 version: '2'
 services:
   kafka1:
-    image: wurstmeister/kafka
+    image: wurstmeister/kafka:2.12-2.3.0
     depends_on:
       - zoo1
       - zoo2
@@ -20,9 +20,11 @@ services:
       KAFKA_LOG_RETENTION_BYTES: "100000000"
       KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: "10000"
       KAFKA_ZOOKEEPER_CONNECT:  zoo1:2181,zoo2:2181,zoo3:2181
+      KAFKA_NUM_PARTITIONS: 40
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 
   kafka2:
-    image: wurstmeister/kafka
+    image: wurstmeister/kafka:2.12-2.3.0
     depends_on:
       - zoo1
       - zoo2
@@ -38,9 +40,11 @@ services:
       KAFKA_LOG_RETENTION_BYTES: "100000000"
       KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: "10000"
       KAFKA_ZOOKEEPER_CONNECT:  zoo1:2181,zoo2:2181,zoo3:2181
+      KAFKA_NUM_PARTITIONS: 40
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 
   kafka3:
-    image: wurstmeister/kafka
+    image: wurstmeister/kafka:2.12-2.3.0
     depends_on:
       - zoo1
       - zoo2
@@ -56,13 +60,13 @@ services:
       KAFKA_LOG_RETENTION_BYTES: "100000000"
       KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: "10000"
       KAFKA_ZOOKEEPER_CONNECT:  zoo1:2181,zoo2:2181,zoo3:2181
+      KAFKA_NUM_PARTITIONS: 40
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 
   zoo1:
-    image: elevy/zookeeper:latest
+    image: zoo_unlimited:latest
     environment:
       MYID: 1
-      ZOO_MAX_CLIENT_CNXNS: 1000 #unlimited
-#      ZOO_MAX_CLIENT_CNXNS: 0 #unlimited
       SERVERS: zoo1,zoo2,zoo3
     ports:
       - "2181:2181"
@@ -70,11 +74,9 @@ services:
       - "3888"
 
   zoo2:
-    image: elevy/zookeeper:latest
+    image: zoo_unlimited:latest
     environment:
       MYID: 2
-      ZOO_MAX_CLIENT_CNXNS: 1000 #unlimited
-#      ZOO_MAX_CLIENT_CNXNS: 0 #unlimited
       SERVERS: zoo1,zoo2,zoo3
     ports:
       - "2182:2181"
@@ -82,11 +84,9 @@ services:
       - "3888"
 
   zoo3:
-    image: elevy/zookeeper:latest
+    image: zoo_unlimited:latest
     environment:
       MYID: 3
-      ZOO_MAX_CLIENT_CNXNS: 1000 #unlimited
-#      ZOO_MAX_CLIENT_CNXNS: 0 #unlimited
       SERVERS: zoo1,zoo2,zoo3
     ports:
       - "2183:2181"
