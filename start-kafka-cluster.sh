@@ -12,9 +12,9 @@ function echo_usage {
     echo "./start-kafka-cluster.sh {version} [ip]"
     echo ""
     echo "example:"
-    echo "./start-kafka-cluster.sh 0901 192.168.2.77"
-    echo "./start-kafka-cluster.sh 230 192.168.2.77"
-    echo "./start-kafka-cluster.sh 230"
+    echo "./start-kafka-cluster.sh 0.9.0.1  192.168.2.77"
+    echo "./start-kafka-cluster.sh 2.3.0    192.168.2.77"
+    echo "./start-kafka-cluster.sh 2.3.0"
     exit 99
 }
 
@@ -26,9 +26,9 @@ export SERVER_IP
 
 
 if [[ -z "${VERSION}" ]]; then echo_usage; fi
-if [[ ! "${VERSION}" = "0901" ]] && [[ ! "${VERSION}" = "230" ]];then echo_usage ; fi
-if [[ "${VERSION}" = "0901" ]]; then FILENAME="docker-compose-2.11-0.9.0.1.yml"   ; fi
-if [[ "${VERSION}" = "230" ]];  then FILENAME="docker-compose-2.12-2.3.0.yml"     ; fi
+if [[ ! "${VERSION}" = "0.9.0.1" ]] && [[ ! "${VERSION}" = "2.3.0" ]];then echo_usage ; fi
+if [[ "${VERSION}" = "0.9.0.1" ]]; then FILENAME="docker-compose-2.11-0.9.0.1.yml"   ; fi
+if [[ "${VERSION}" = "2.3.0" ]];  then FILENAME="docker-compose-2.12-2.3.0.yml"     ; fi
 
 echo "preparing docker-compose with: ${FILENAME}"
 cp  ${FILENAME} docker-compose.yml
