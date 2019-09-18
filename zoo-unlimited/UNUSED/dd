@@ -1,0 +1,5 @@
+FROM elevy/zookeeper:latest
+
+COPY zoo.cfg /zookeeper/conf/zoo.cfg
+
+CMD /bin/bash
