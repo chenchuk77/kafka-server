@@ -14,7 +14,17 @@ I made this while experimenting with setting up Kafka in Kubernetes. I have incl
 
 To start the Zookeeper ensemble and Kafka cluster, assuming you have docker-compose (>= 1.6) installed:
 
-1. install/upgrade docker-compose
+1. install docker
+    ```
+    $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    $ sudo apt-get update
+    $ sudo apt-get install -y docker-ce
+    $ sudo systemctl status docker
+    $ sudo usermod -aG docker ${USER}
+    ```
+    
+2. install/upgrade docker-compose
     ```
     $ docker-compose --version
     $ sudo apt-get remove docker-compose
@@ -26,12 +36,12 @@ To start the Zookeeper ensemble and Kafka cluster, assuming you have docker-comp
     $ docker-compose --version
     ```
     
-2. create a zookeeper image that support ZOO_MAX_CNXNS for lms-allinone
+3. create a zookeeper image that support ZOO_MAX_CNXNS for lms-allinone
     ```
     /kafka-server/zoo-unlimited $ docker build -t zoo-unlimited .
     ```
     
-3. run start script with the specified version (ip is optional, default to current IP)
+4. run start script with the specified version (ip is optional, default to current IP)
     ```
     /kafka-server/zoo-unlimited $ cd ..
     /kafka-server/ $ ./start-kafka-cluster.sh 230
