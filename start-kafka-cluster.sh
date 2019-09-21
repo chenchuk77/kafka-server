@@ -31,7 +31,7 @@ if [[ ! "${VERSION}" = "0.9.0.0" ]] && [[ ! "${VERSION}" = "2.3.0" ]];then echo_
 
 # version 0.9.0.0 is based on single broker (zoofka)
 if [[ "${VERSION}" = "0.9.0.0" ]]; then
-    . zoofka2/start-kafka-broker.sh
+    . /opt/kafka-server/zoofka2/start-kafka-broker.sh
     exit 0
 fi
 
