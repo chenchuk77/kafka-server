@@ -1,0 +1,73 @@
+# kafka ver 2.11-0.9.0.1
+
+version: '2'
+services:
+  zoofka-1:
+    image: chen/zoofka:1.0
+    ports:
+      - "9092:9092"
+      - "2181:2181"
+      - "2888"
+      - "3888"
+    environment:
+      KAFKA_LOG_DIRS: /kafka
+      KAFKA_BROKER_ID: 1
+      KAFKA_CREATE_TOPICS: test-topic-1:1:2,test-topic-2:1:2,test-topic-3:1:2
+      KAFKA_ADVERTISED_HOST_NAME: "${SERVER_IP}"
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_LOG_RETENTION_HOURS: "168"
+      KAFKA_LOG_RETENTION_BYTES: "100000000"
+      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: "10000"
+      KAFKA_ZOOKEEPER_CONNECT:  zoofka-1:2181,zoofka-2:2181,zoofka-3:2181
+      KAFKA_NUM_PARTITIONS: 40
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      MYID: 1
+      SERVERS: zoofka-1,zoofka-2,zoofka-3
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zoofka-1:2888:3888;2181 server.2=zoofka-2:2888:3888;2181 server.3=zoofka-3:2888:3888;2181
+
+  zoofka-2:
+    image: chen/zoofka:1.0
+    ports:
+      - "9093:9092"
+      - "2182:2181"
+      - "2888"
+      - "3888"
+    environment:
+      KAFKA_LOG_DIRS: /kafka
+      KAFKA_BROKER_ID: 2
+      KAFKA_ADVERTISED_HOST_NAME: "${SERVER_IP}"
+      KAFKA_ADVERTISED_PORT: 9093
+      KAFKA_LOG_RETENTION_HOURS: "168"
+      KAFKA_LOG_RETENTION_BYTES: "100000000"
+      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: "10000"
+      KAFKA_ZOOKEEPER_CONNECT:  zoofka-1:2181,zoofka-2:2181,zoofka-3:2181
+      KAFKA_NUM_PARTITIONS: 40
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      MYID: 2
+      SERVERS: zoofka-1,zoofka-2,zoofka-3
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoofka-1:2888:3888;2181 server.2=zoofka-2:2888:3888;2181 server.3=zoofka-3:2888:3888;2181
+
+  zoofka-3:
+    image: chen/zoofka:1.0
+    ports:
+      - "9094:9092"
+      - "2183:2181"
+      - "2888"
+      - "3888"
+    environment:
+      KAFKA_LOG_DIRS: /kafka
+      KAFKA_BROKER_ID: 3
+      KAFKA_ADVERTISED_HOST_NAME: "${SERVER_IP}"
+      KAFKA_ADVERTISED_PORT: 9094
+      KAFKA_LOG_RETENTION_HOURS: "168"
+      KAFKA_LOG_RETENTION_BYTES: "100000000"
+      KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS: "10000"
+      KAFKA_ZOOKEEPER_CONNECT:  zoofka-1:2181,zoofka-2:2181,zoofka-3:2181
+      KAFKA_NUM_PARTITIONS: 40
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      MYID: 3
+      SERVERS: zoofka-1,zoofka-2,zoofka-3
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoofka-1:2888:3888;2181 server.2=zoofka-2:2888:3888;2181 server.3=zoofka-3:2888:3888;2181
