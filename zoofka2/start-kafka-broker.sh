@@ -1,7 +1,11 @@
 #!/bin/bash
 
 
+#docker build -t chenchuk/zoofka:1.0 .
+
+cd zoofka2
 docker build -t chenchuk/zoofka:1.0 .
+cd ..
 
 docker ps | grep 2181 && {
   echo "container already running."
