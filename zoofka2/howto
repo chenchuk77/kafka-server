@@ -1,0 +1,16 @@
+
+# build zoofka image ( integrated kafka/zookeeper )
+# Dockerfile from broker spotify. changed FROM a different source image
+docker build -t chen/zoofka:1.0 .
+
+# run container
+docker run -p 2181:2181 \
+           -p 9092:9092 \
+           --env ADVERTISED_HOST=192.168.2.78 \
+           --env ADVERTISED_PORT=9092 \
+           --name zoofka chenchuk/zoofka:1.0
+
+
+
+#### DELETE
+#           --env ADVERTISED_HOST=192.168.2.78 \
