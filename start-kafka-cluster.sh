@@ -12,7 +12,7 @@ function echo_usage {
     echo "./start-kafka-cluster.sh {version} [ip]"
     echo ""
     echo "example:"
-    echo "./start-kafka-cluster.sh 0.9.0.1  192.168.2.77"
+    echo "./start-kafka-cluster.sh 0.9.0.0  192.168.2.77"
     echo "./start-kafka-cluster.sh 2.3.0    192.168.2.77"
     echo "./start-kafka-cluster.sh 2.3.0"
     exit 99
@@ -26,16 +26,27 @@ export SERVER_IP
 
 
 if [[ -z "${VERSION}" ]]; then echo_usage; fi
-if [[ ! "${VERSION}" = "0.9.0.1" ]] && [[ ! "${VERSION}" = "2.3.0" ]];then echo_usage ; fi
-if [[ "${VERSION}" = "0.9.0.1" ]]; then FILENAME="docker-compose-2.11-0.9.0.1.yml"   ; fi
-if [[ "${VERSION}" = "2.3.0" ]];  then FILENAME="docker-compose-2.12-2.3.0.yml"     ; fi
+if [[ ! "${VERSION}" = "0.9.0.0" ]] && [[ ! "${VERSION}" = "2.3.0" ]];then echo_usage ; fi
 
-echo "preparing docker-compose with: ${FILENAME}"
-cp  ${FILENAME} docker-compose.yml
-sleep 3s
 
-# run cluster of 3 zookeepers and 3 kafka servers, send all logs to file
-make up | tee kafka-cluster-logs.log
+# version 0.9.0.0 is based on single broker (zoofka)
+if [[ "${VERSION}" = "0.9.0.0" ]]; then
+    . zoofka2/start-kafka-broker.sh
+    exit 0
+fi
+
+
+# version 2.3.0 is based on docker-compose 3-brokers cluster
+if [[ "${VERSION}" = "2.3.0" ]]; then
+    FILENAME="docker-compose-2.12-2.3.0.yml"
+    echo "preparing docker-compose with: ${FILENAME}"
+    cp  ${FILENAME} docker-compose.yml
+    sleep 3s
+
+    # run cluster of 3 zookeepers and 3 kafka servers, send all logs to file
+    make up | tee kafka-cluster-logs.log
+fi
+
 
 
 ## in another terminal u can filter logs to get single broker logs
