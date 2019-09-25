@@ -18,6 +18,8 @@ RUN apt-get update && \
     tar xfz /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -C /opt && \
     rm /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz
 
+RUN echo "maxClientCnxns=10000" >> /etc/zookeeper/conf/zoo.cfg
+
 ADD scripts/start-kafka.sh /usr/bin/start-kafka.sh
 
 # Supervisor config
