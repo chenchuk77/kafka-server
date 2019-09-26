@@ -18,6 +18,17 @@ function echo_usage {
     exit 99
 }
 
+which docker || {
+    echo "please install docker. (howto in confluence)"
+    exit 99
+}
+
+which docker-compose || {
+    echo "please install docker-compose. (howto in confluence)"
+    exit 99
+}
+
+
 if [[ -z "${SERVER_IP}" ]]; then
     SERVER_IP=$(ifconfig| grep 192.168.2  | awk '{print $2}' | cut -d ":" -f2)
     echo "server ip not provided, assuming ${SERVER_IP}"
