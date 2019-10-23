@@ -1,19 +1,18 @@
-# Kafka with docker-compose
-
+# Kafka-Server
+## Multi-version Multi-broker Kafka cluster (dev)
 Three broker Kafka cluster and three node Zookeeper ensemble running in Docker with docker-compose.
 The zookeeper containers is especially configured for LMS purposes
 
 ## Overview
-
+This project supports 2 optional cluster configuration:
+1. Kafka 2.3.0
 Based on @eliaslevy's work on a Zookeeper cluster in Kubernetes [here](https://github.com/eliaslevy/docker-zookeeper), and @wurstmeister's Kafka docker-compose [here](https://github.com/wurstmeister/kafka-docker).
 Kafka requires unique `host:port` combinations, and can try assign its own broker IDs, but the issue with it assigning its own broker IDs is that they aren't persistent across container restarts. It would probably be better to hardcode `KAFKA_BROKER_ID` for each instance for now, or you get "Leader Not Available" issues.
 
-I made this while experimenting with setting up Kafka in Kubernetes. I have included the Kubernetes config files and instructions for setting up a multi-broker Kafka cluster and Zookeeper ensemble [here](https://github.com/zoidbergwill/docker-compose-kafka/kubernetes/).
+2. Kafka 0.9.0.1
+To support this old image i had to create a new image called zoofka. the image is built from zookeeper and kafka on the same image.
 
-## Usage
-
-To start the Zookeeper ensemble and Kafka cluster, assuming you have docker-compose (>= 1.6) installed:
-
+## Prerequsites
 1. install docker
     ```
     $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -38,12 +37,17 @@ To start the Zookeeper ensemble and Kafka cluster, assuming you have docker-comp
     
 3. create a zookeeper image that support ZOO_MAX_CNXNS for lms-allinone
     ```
-    /kafka-server/zoo-unlimited $ docker build -t zoo-unlimited .
+    cd zoo-unlimited
+    /kafka-server/zoo-unlimited$ docker build -t zoo-unlimited .
     ```
-    
-4. run start script with the specified version (ip is optional, default to current IP)
+## Running the kafka-server cluster
+run start script with the specified version (ip is optional, default to current IP)
     ```
     /kafka-server/zoo-unlimited $ cd ..
-    /kafka-server/ $ ./start-kafka-cluster.sh 230
+    /kafka-server/ $ ./start-kafka-cluster.sh 2.3.0
     ```
     
+## TODO:
+1. check Zoofka installation
+
+
