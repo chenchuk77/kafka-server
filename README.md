@@ -42,10 +42,10 @@ To support this old image i had to create a new image called zoofka. the image i
     ```
 ## Running the kafka-server cluster
 run start script with the specified version (ip is optional, default to current IP)
-    ```
-    /kafka-server/zoo-unlimited $ cd ..
-    /kafka-server/ $ ./start-kafka-cluster.sh 2.3.0
-    ```
+```
+/kafka-server/zoo-unlimited $ cd ..
+/kafka-server/ $ ./start-kafka-cluster.sh 2.3.0
+```
     
 ## TODO:
 1. check Zoofka installation
